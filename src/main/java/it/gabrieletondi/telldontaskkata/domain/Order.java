@@ -1,7 +1,11 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
+import it.gabrieletondi.telldontaskkata.useCase.orderApproval.*;
+import it.gabrieletondi.telldontaskkata.useCase.OrderApprovalRequest;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Order {
@@ -12,12 +16,20 @@ public class Order {
     private OrderStatus status;
     private int id;
 
+    private List<ApprovalValidator> approvalValidators;
+
     public Order(String currency) {
         this.status = OrderStatus.CREATED;
         this.items = new ArrayList<>();
         this.total = BigDecimal.ZERO;
         this.tax = BigDecimal.ZERO;
         this.currency = currency;
+
+        approvalValidators = Arrays.asList(
+                new ApprovalValidatorAlreadyShipped(),
+                new ApprovalValidatorRejectedOrder(),
+                new ApprovalValidatorApprovedOrder()
+        );
     }
 
     public Order() {
@@ -77,5 +89,19 @@ public class Order {
         items.add(orderItem);
         total = total.add(orderItem.getTaxedAmount());
         tax = tax.add(orderItem.getTax());
+    }
+
+    public void approve(OrderApprovalRequest request) {
+
+        approvalValidators.forEach(validator -> validator.validate(request, this));
+        status = request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED;
+    }
+
+    private boolean isShipped() {
+        return status.equals(OrderStatus.SHIPPED);
+    }
+
+    private boolean isRejected() {
+        return status.equals(OrderStatus.REJECTED);
     }
 }
