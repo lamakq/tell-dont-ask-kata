@@ -100,11 +100,17 @@ public class Order {
 
     }
 
-    public void createOrder(ProductCatalog productCatalog, SellItemsRequest request){
+    private void createOrder(ProductCatalog productCatalog, SellItemsRequest request){
         for (SellItemRequest itemRequest : request.getRequests()) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
             final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
             this.addOrderItem(orderItem);
         }
+    }
+
+    public static Order create(String currency, ProductCatalog productCatalog, SellItemsRequest request){
+        Order order = new Order(currency);
+        order.createOrder(productCatalog, request);
+        return order;
     }
 }

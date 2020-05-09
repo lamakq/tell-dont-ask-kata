@@ -23,8 +23,7 @@ public class OrderCreationUseCase {
     }
 
     public void run(SellItemsRequest request) {
-        Order order = new Order("EUR");
-        order.createOrder(productCatalog, request);
+        Order order = Order.create("EUR", productCatalog, request);
         orderRepository.save(order);
     }
 }
