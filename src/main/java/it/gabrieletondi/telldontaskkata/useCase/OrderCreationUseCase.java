@@ -27,14 +27,8 @@ public class OrderCreationUseCase {
 
         for (SellItemRequest itemRequest : request.getRequests()) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
-
-            if (product == null) {
-                throw new UnknownProductException();
-            }
-            else {
-                final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
-                order.addOrderItem(orderItem);
-            }
+            final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
+            order.addOrderItem(orderItem);
         }
 
         orderRepository.save(order);
