@@ -70,4 +70,16 @@ public class Order {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void addItem(OrderItem orderItem) {
+        this.items.add(orderItem);
+    }
+
+    public void addTotal(BigDecimal taxedAmount) {
+        this.total = this.total.add(taxedAmount);
+    }
+
+    public void addTaxTotal(BigDecimal tax) {
+        this.tax = this.tax.add(tax);
+    }
 }
