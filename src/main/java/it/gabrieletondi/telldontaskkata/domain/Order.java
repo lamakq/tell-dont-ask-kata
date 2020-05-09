@@ -1,5 +1,7 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
+import it.gabrieletondi.telldontaskkata.useCase.SellItemRequest;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,42 +18,26 @@ public class Order {
 
     public Order() {
         this.status = CREATED;
-        this.setItems(new ArrayList<>());
-        this.setCurrency("EUR");
-        this.setTotal(new BigDecimal("0.00"));
-        this.setTax(new BigDecimal("0.00"));
+        this.items = new ArrayList<>();
+        this.currency = "EUR";
+        this.total = new BigDecimal("0.00");
+        this.tax = new BigDecimal("0.00");
     }
 
     public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
     public String getCurrency() {
         return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public List<OrderItem> getItems() {
         return items;
     }
 
-    public void setItems(List<OrderItem> items) {
-        this.items = items;
-    }
-
     public BigDecimal getTax() {
         return tax;
-    }
-
-    public void setTax(BigDecimal tax) {
-        this.tax = tax;
     }
 
     public OrderStatus getStatus() {
@@ -83,5 +69,10 @@ public class Order {
 
     private void addTaxAmount(BigDecimal taxAmount) {
         this.tax = this.tax.add(taxAmount);
+    }
+
+    public void addOrderItem(SellItemRequest itemRequest, Product product) {
+        final OrderItem orderItem = itemRequest.getOrderItem(product);
+        addItem(orderItem);
     }
 }

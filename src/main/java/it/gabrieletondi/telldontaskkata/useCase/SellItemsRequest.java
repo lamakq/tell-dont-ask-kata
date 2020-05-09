@@ -1,7 +1,6 @@
 package it.gabrieletondi.telldontaskkata.useCase;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
-import it.gabrieletondi.telldontaskkata.domain.OrderItem;
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
@@ -26,14 +25,9 @@ public class SellItemsRequest {
             Product product = productCatalog.getByName(itemRequest.getProductName());
             assertProductNotEmpty(product);
 
-            addOrderItem(order, itemRequest, product);
+            order.addOrderItem(itemRequest, product);
         }
         return order;
-    }
-
-    private void addOrderItem(Order order, SellItemRequest itemRequest, Product product) {
-        final OrderItem orderItem = itemRequest.getOrderItem(product);
-        order.addItem(orderItem);
     }
 
     private void assertProductNotEmpty(Product product) {

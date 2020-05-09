@@ -19,7 +19,7 @@ public class SellItemRequest {
         return productName;
     }
 
-    OrderItem getOrderItem(Product product) {
+    public OrderItem getOrderItem(Product product) {
         return new OrderItem(product, quantity);
     }
 }
