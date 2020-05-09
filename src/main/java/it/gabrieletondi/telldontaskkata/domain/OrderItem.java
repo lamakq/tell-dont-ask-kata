@@ -1,7 +1,5 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
-import it.gabrieletondi.telldontaskkata.useCase.SellItemRequest;
-
 import java.math.BigDecimal;
 
 public class OrderItem {
@@ -10,11 +8,11 @@ public class OrderItem {
     private BigDecimal taxedAmount;
     private BigDecimal tax;
 
-    public OrderItem(SellItemRequest itemRequest, Product product) {
+    public OrderItem(Product product, int quantity) {
         this.product = product;
-        this.quantity = itemRequest.getQuantity();
-        this.tax = product.getTaxAmount(itemRequest);
-        this.taxedAmount = product.getTaxedAmount(itemRequest);
+        this.quantity = quantity;
+        this.tax = product.getTaxAmount(quantity);
+        this.taxedAmount = product.getTaxedAmount(quantity);
     }
 
     public Product getProduct() {

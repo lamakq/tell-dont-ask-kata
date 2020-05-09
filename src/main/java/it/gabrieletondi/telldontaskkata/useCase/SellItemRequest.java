@@ -1,5 +1,8 @@
 package it.gabrieletondi.telldontaskkata.useCase;
 
+import it.gabrieletondi.telldontaskkata.domain.OrderItem;
+import it.gabrieletondi.telldontaskkata.domain.Product;
+
 public class SellItemRequest {
     private int quantity;
     private String productName;
@@ -12,11 +15,11 @@ public class SellItemRequest {
         this.productName = productName;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
     public String getProductName() {
         return productName;
+    }
+
+    OrderItem getOrderItem(Product product) {
+        return new OrderItem(product, quantity);
     }
 }

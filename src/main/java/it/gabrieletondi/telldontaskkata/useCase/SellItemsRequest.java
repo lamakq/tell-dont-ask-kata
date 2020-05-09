@@ -27,7 +27,7 @@ public class SellItemsRequest {
 
             assertProductNotEmpty(product);
 
-            final OrderItem orderItem = new OrderItem(itemRequest, product);
+            final OrderItem orderItem = itemRequest.getOrderItem(product);
             order.addItem(orderItem);
         }
         return order;

@@ -1,7 +1,5 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
-import it.gabrieletondi.telldontaskkata.useCase.SellItemRequest;
-
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.valueOf;
@@ -41,11 +39,11 @@ public class Product {
         return this.price.add(getUnitaryTax()).setScale(2, HALF_UP);
     }
 
-    public BigDecimal getTaxAmount(SellItemRequest itemRequest) {
-        return getUnitaryTax().multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
+    public BigDecimal getTaxAmount(int quantity) {
+        return getUnitaryTax().multiply(BigDecimal.valueOf(quantity));
     }
 
-    public BigDecimal getTaxedAmount(SellItemRequest itemRequest) {
-        return getUnitaryTaxedAmount().multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
+    public BigDecimal getTaxedAmount(int quantity) {
+        return getUnitaryTaxedAmount().multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
     }
 }
