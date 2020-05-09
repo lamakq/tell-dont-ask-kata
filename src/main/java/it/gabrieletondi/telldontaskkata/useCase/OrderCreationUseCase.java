@@ -29,15 +29,15 @@ public class OrderCreationUseCase {
             Product product = productCatalog.getByName(itemRequest.getProductName());
 
             // unitaryTax = price/100 * taxPercent
-            final BigDecimal unitaryTax = product.getUnitaryTax();
+//            final BigDecimal unitaryTax = product.getUnitaryTax();
             // uTAmt = (price + uTax)
-            final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
+//            final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
             // taxedAMount = uTAmt * quantity
-            final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
+//            final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
             // taxAmount = uTax * quantity;
-            final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
+//            final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
 
-            final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity(), taxedAmount, taxAmount);
+            final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
             order.addItem(orderItem);
 
         }

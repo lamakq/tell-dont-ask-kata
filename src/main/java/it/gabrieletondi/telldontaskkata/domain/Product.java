@@ -8,11 +8,24 @@ import static java.math.RoundingMode.HALF_UP;
 public class Product {
     private String name;
     private BigDecimal price;
+    private BigDecimal unitTax;
+    private BigDecimal taxedPrice;
     private Category category;
 
-    public BigDecimal getUnitaryTax()
-    {
-        return price.divide(valueOf(100)).multiply(category.getTaxPercentage()).setScale(2, HALF_UP);
+    public Product(String name, BigDecimal price, Category category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.unitTax = price.divide(valueOf(100)).multiply(category.getTaxPercentage()).setScale(2, HALF_UP);
+        this.taxedPrice = price.add(unitTax);
+    }
+
+    public BigDecimal getUnitTax() {
+        return unitTax;
+    }
+
+    public BigDecimal getTaxedPrice() {
+        return taxedPrice;
     }
 
     public String getName() {
