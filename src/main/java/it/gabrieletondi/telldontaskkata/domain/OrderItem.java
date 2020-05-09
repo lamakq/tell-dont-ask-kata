@@ -39,4 +39,14 @@ public class OrderItem {
     public void setTax(BigDecimal tax) {
         this.tax = tax;
     }
+
+    public OrderItem(Product product, int quantity, BigDecimal taxedAmount, BigDecimal tax) {
+        this.product = product;
+        this.quantity = quantity;
+        this.taxedAmount = taxedAmount;
+        this.tax = tax;
+    }
+
+    public OrderItem() {
+    }
 }
