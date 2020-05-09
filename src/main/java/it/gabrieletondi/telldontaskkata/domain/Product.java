@@ -26,15 +26,16 @@ public class Product {
         this.price = price;
     }
 
-    public Category getCategory() {
-        return category;
-    }
 
     public void setCategory(Category category) {
         this.category = category;
     }
 
     public BigDecimal getUnitaryTax() {
-        return getPrice().divide(valueOf(100)).multiply(getCategory().getTaxPercentage()).setScale(2, HALF_UP);
+        return this.price.divide(valueOf(100)).multiply(this.category.getTaxPercentage()).setScale(2, HALF_UP);
+    }
+
+    public BigDecimal getUnitaryTaxedAmount() {
+        return this.price.add(getUnitaryTax()).setScale(2, HALF_UP);
     }
 }
