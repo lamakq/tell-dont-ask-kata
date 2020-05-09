@@ -15,7 +15,7 @@ public class Order {
     private int id;
 
     public Order() {
-        this.setCreatedStatus();
+        this.status = CREATED;
         this.setItems(new ArrayList<>());
         this.setCurrency("EUR");
         this.setTotal(new BigDecimal("0.00"));
