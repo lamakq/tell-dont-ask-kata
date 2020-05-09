@@ -20,20 +20,11 @@ import static org.junit.Assert.assertThat;
 
 public class OrderCreationUseCaseTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
-    private Category food = new Category() {{
-        setName("food");
-        setTaxPercentage(new BigDecimal("10"));
-    }};;
+    private Category food = new Category("food",new BigDecimal("10"));
     private final ProductCatalog productCatalog = new InMemoryProductCatalog(
             Arrays.<Product>asList(
-                    new Product("salad", new BigDecimal("3.56"),food) {{
-
-
-                    }},
-                    new Product("tomato", new BigDecimal("4.65"),food) {{
-
-
-                    }}
+                    new Product("salad", new BigDecimal("3.56"),food),
+                    new Product("tomato", new BigDecimal("4.65"),food)
             )
     );
     private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository, productCatalog);
