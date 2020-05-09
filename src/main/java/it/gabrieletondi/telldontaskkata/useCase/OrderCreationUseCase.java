@@ -42,10 +42,10 @@ public class OrderCreationUseCase {
                 orderItem.setQuantity(itemRequest.getQuantity());
                 orderItem.setTax(taxAmount);
                 orderItem.setTaxedAmount(taxedAmount);
-                order.getItems().add(orderItem);
 
-                order.setTotal(order.getTotal().add(taxedAmount));
-                order.setTax(order.getTax().add(taxAmount));
+
+                order.addOrderItem(orderItem);
+
             }
         }
 

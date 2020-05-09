@@ -104,4 +104,11 @@ public class Order {
 
         this.status = OrderStatus.SHIPPED;
     }
+
+    public void addOrderItem(OrderItem orderItem) {
+        this.items.add(orderItem);
+        this.total = this.total.add(orderItem.getTaxedAmount());
+        this.tax = this.tax.add(orderItem.getTax());
+
+    }
 }
