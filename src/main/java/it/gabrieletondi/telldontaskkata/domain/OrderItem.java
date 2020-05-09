@@ -18,19 +18,25 @@ public class OrderItem {
     public OrderItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.tax = getProductTax();
-        this.taxedAmount = getProductTaxedAmount();
+        this.tax = calculateTax();
+        this.taxedAmount = calculateTaxedAmount();
     }
 
-    private BigDecimal getProductTax() {
-        final BigDecimal unitaryTax = product.getUnitaryTax().setScale(2, HALF_UP);
+    private BigDecimal calculateTax() {
+        int roundingScale = 2;
+        RoundingMode roundingMode = HALF_UP;
+        
+        final BigDecimal unitaryTax = product.getUnitaryTax().setScale(roundingScale, roundingMode);
         return unitaryTax.multiply(BigDecimal.valueOf(quantity));
     }
 
-    private BigDecimal getProductTaxedAmount() {
-        final BigDecimal unitaryTax = product.getUnitaryTax().setScale(2, HALF_UP);
-        final BigDecimal unitaryTaxedAmount = product.getUnitaryTaxedAmount(unitaryTax).setScale(2, HALF_UP);
-        return unitaryTaxedAmount.multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
+    private BigDecimal calculateTaxedAmount() {
+        int roundingScale = 2;
+        RoundingMode roundingMode = HALF_UP;
+
+        final BigDecimal unitaryTax = product.getUnitaryTax().setScale(roundingScale, roundingMode);
+        final BigDecimal unitaryTaxedAmount = product.getUnitaryTaxedAmount(unitaryTax).setScale(roundingScale, roundingMode);
+        return unitaryTaxedAmount.multiply(BigDecimal.valueOf(quantity)).setScale(roundingScale, roundingMode);
     }
 
     public Product getProduct() {
