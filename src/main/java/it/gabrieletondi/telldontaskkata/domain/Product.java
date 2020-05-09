@@ -37,11 +37,15 @@ public class Product {
         return this.price.divide(valueOf(100)).multiply(this.category.getTaxPercentage()).setScale(2, HALF_UP);
     }
 
-    public BigDecimal getUnitaryTaxedAmount() {
+    private BigDecimal getUnitaryTaxedAmount() {
         return this.price.add(getUnitaryTax()).setScale(2, HALF_UP);
     }
 
     public BigDecimal getTaxAmount(SellItemRequest itemRequest) {
         return getUnitaryTax().multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
+    }
+
+    public BigDecimal getTaxedAmount(SellItemRequest itemRequest) {
+        return getUnitaryTaxedAmount().multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
     }
 }
