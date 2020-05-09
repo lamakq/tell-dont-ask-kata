@@ -23,15 +23,17 @@ public class OrderCreationUseCase {
     }
 
     public void run(SellItemsRequest request) throws UnknownProductException {
-        Order order = new Order("EUR");
+        Order order = new Order();
 
-        for (SellItemRequest itemRequest : request.getRequests()) {
-            Product product = productCatalog.getByName(itemRequest.getProductName());
-            final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
-            order.addItem(orderItem);
-
-        }
+        request.getRequests().stream()
+                .map(this::convertItemRequestToOrderItem)
+                .forEach(order::addItem);
 
         orderRepository.save(order);
+    }
+
+    private OrderItem convertItemRequestToOrderItem(SellItemRequest itemRequest) {
+
+        return new OrderItem(productCatalog.getByName(itemRequest.getProductName()), itemRequest.getQuantity());
     }
 }
