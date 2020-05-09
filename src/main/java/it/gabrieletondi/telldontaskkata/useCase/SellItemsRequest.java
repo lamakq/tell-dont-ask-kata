@@ -5,7 +5,6 @@ import it.gabrieletondi.telldontaskkata.domain.OrderItem;
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,8 @@ public class SellItemsRequest {
         return requests;
     }
 
-    void createOrderItems(Order order, ProductCatalog productCatalog) {
+    Order createOrderItems() {
+        Order order = new Order();
         for (SellItemRequest itemRequest : requests) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
 
@@ -30,6 +30,7 @@ public class SellItemsRequest {
             final OrderItem orderItem = new OrderItem(itemRequest, product);
             order.addItem(orderItem);
         }
+        return order;
     }
 
     private void assertProductNotEmpty(Product product) {
