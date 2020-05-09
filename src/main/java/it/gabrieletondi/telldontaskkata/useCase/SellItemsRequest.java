@@ -20,7 +20,7 @@ public class SellItemsRequest {
         return requests;
     }
 
-    Order createOrderItems() {
+    Order createOrder() {
         Order order = new Order();
         for (SellItemRequest itemRequest : requests) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
