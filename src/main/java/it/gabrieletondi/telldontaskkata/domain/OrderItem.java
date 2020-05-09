@@ -31,16 +31,16 @@ public class OrderItem {
         return taxedAmount;
     }
 
-    public void setTaxedAmount(BigDecimal taxedAmount) {
-        this.taxedAmount = taxedAmount;
+    public void setTaxedAmount() {
+        this.taxedAmount = product.getTotalTaxedAmount(quantity);
     }
 
     public BigDecimal getTax() {
         return tax;
     }
 
-    public void setTax(BigDecimal tax) {
-        this.tax = tax;
+    public void setTax() {
+        this.tax = product.getTotalTaxAmount(quantity);
     }
 
 }

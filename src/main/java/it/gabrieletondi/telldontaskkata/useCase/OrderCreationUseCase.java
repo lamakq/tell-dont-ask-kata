@@ -33,19 +33,18 @@ public class OrderCreationUseCase {
             }
             else {
 
-                final BigDecimal taxedAmount = product.getTotalTaxedAmount(itemRequest.getQuantity());
-                final BigDecimal taxAmount = product.getTotalTaxAmount(itemRequest.getQuantity());
-
                 final OrderItem orderItem = new OrderItem();
                 orderItem.setProduct(product);
                 orderItem.setQuantity(itemRequest.getQuantity());
-                orderItem.setTax(taxAmount);
-                orderItem.setTaxedAmount(taxedAmount);
+                orderItem.setTax();
+                orderItem.setTaxedAmount();
                 order.addOrderItem(orderItem);
-                order.updateTotal(taxedAmount);
-                order.updateTax(taxAmount);
+                order.updateTotal(orderItem.getTaxedAmount());
+                order.updateTax(orderItem.getTax());
+
             }
         }
+
 
         orderRepository.save(order);
     }

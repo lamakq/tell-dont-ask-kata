@@ -69,16 +69,15 @@ public class Order {
         this.id = id;
     }
 
-    public void addOrderItem(OrderItem orderItem){
+    public void addOrderItem(OrderItem orderItem) {
         this.items.add(orderItem);
     }
 
-    public void updateTotal(BigDecimal amount) {
-        setTotal(this.total.add(amount));
+    public void updateTotal(BigDecimal taxedAmount) {
+        this.total = this.total.add(taxedAmount);
     }
 
     public void updateTax(BigDecimal taxAmount) {
-
-        setTax(this.tax.add(taxAmount));
+        this.tax = this.tax.add(taxAmount);
     }
 }
