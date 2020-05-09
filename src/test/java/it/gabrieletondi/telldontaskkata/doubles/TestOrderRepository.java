@@ -3,6 +3,8 @@ package it.gabrieletondi.telldontaskkata.doubles;
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.repository.OrderRepository;
 
+import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
+import it.gabrieletondi.telldontaskkata.request.SellItemsRequest;
 import it.gabrieletondi.telldontaskkata.service.ShipmentService;
 import it.gabrieletondi.telldontaskkata.request.OrderApprovalRequest;
 import it.gabrieletondi.telldontaskkata.request.OrderShipmentRequest;
@@ -42,6 +44,11 @@ public class TestOrderRepository implements OrderRepository {
     public void shipOrder(OrderShipmentRequest orderShipmentRequest){
         final Order order = this.getById(orderShipmentRequest.getOrderId());
         order.ship(shipmentService);
+        this.save(order);
+    }
+
+    public void createOrder(SellItemsRequest request, ProductCatalog productCatalog){
+        Order order = Order.create("EUR", productCatalog, request);
         this.save(order);
     }
 

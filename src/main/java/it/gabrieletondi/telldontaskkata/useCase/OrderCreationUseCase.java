@@ -17,7 +17,8 @@ public class OrderCreationUseCase {
     }
 
     public void run(SellItemsRequest request) {
-        Order order = Order.create("EUR", productCatalog, request);
-        orderRepository.save(order);
+        orderRepository.createOrder(request, productCatalog);
+//        Order order = Order.create("EUR", productCatalog, request);
+//        orderRepository.save(order);
     }
 }
