@@ -33,7 +33,7 @@ public class OrderCreationUseCaseTest {
                     }}
             )
     );
-    private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository, productCatalog);
+    private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository);
 
     @Test
     public void sellMultipleItems() throws Exception {
