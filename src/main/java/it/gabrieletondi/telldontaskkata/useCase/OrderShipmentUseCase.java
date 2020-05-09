@@ -20,7 +20,7 @@ public class OrderShipmentUseCase {
 
     public void run(OrderShipmentRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
-        order.shipOrder(shipmentService);
+        order.ship(shipmentService);
         orderRepository.save(order);
     }
 }

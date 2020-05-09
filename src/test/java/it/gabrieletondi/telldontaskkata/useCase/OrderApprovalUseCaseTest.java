@@ -3,6 +3,7 @@ package it.gabrieletondi.telldontaskkata.useCase;
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
+import it.gabrieletondi.telldontaskkata.doubles.TestShipmentService;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -10,7 +11,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class OrderApprovalUseCaseTest {
-    private final TestOrderRepository orderRepository = new TestOrderRepository();
+    private final TestOrderRepository orderRepository = new TestOrderRepository(new TestShipmentService());
     private final OrderApprovalUseCase useCase = new OrderApprovalUseCase(orderRepository);
 
     @Test

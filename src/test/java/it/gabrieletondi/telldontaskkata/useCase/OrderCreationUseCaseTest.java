@@ -6,6 +6,7 @@ import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.doubles.InMemoryProductCatalog;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
+import it.gabrieletondi.telldontaskkata.doubles.TestShipmentService;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class OrderCreationUseCaseTest {
-    private final TestOrderRepository orderRepository = new TestOrderRepository();
+    private final TestOrderRepository orderRepository = new TestOrderRepository(new TestShipmentService());
     private Category food = new Category("food",new BigDecimal("10"));
     private final ProductCatalog productCatalog = new InMemoryProductCatalog(
             Arrays.<Product>asList(

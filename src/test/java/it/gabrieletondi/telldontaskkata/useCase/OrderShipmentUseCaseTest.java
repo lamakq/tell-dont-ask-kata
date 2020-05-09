@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class OrderShipmentUseCaseTest {
-    private final TestOrderRepository orderRepository = new TestOrderRepository();
+    private final TestOrderRepository orderRepository = new TestOrderRepository(new TestShipmentService());
     private final TestShipmentService shipmentService = new TestShipmentService();
     private final OrderShipmentUseCase useCase = new OrderShipmentUseCase(orderRepository, shipmentService);
 
