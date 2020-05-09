@@ -28,23 +28,15 @@ public class OrderCreationUseCase {
         for (SellItemRequest itemRequest : request.getRequests()) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
 
-            if (product == null) {
-                throw new UnknownProductException();
-            }
-            else {
-
-                final OrderItem orderItem = new OrderItem();
-                orderItem.setProduct(product);
-                orderItem.setQuantity(itemRequest.getQuantity());
-                orderItem.setTax();
-                orderItem.setTaxedAmount();
-                order.addOrderItem(orderItem);
-                order.updateTotal(orderItem.getTaxedAmount());
-                order.updateTax(orderItem.getTax());
-
-            }
+            final OrderItem orderItem = new OrderItem();
+            orderItem.setProduct(product);
+            orderItem.setQuantity(itemRequest.getQuantity());
+            orderItem.setTax();
+            orderItem.setTaxedAmount();
+            order.addOrderItem(orderItem);
+            order.updateTotal(orderItem.getTaxedAmount());
+            order.updateTax(orderItem.getTax());
         }
-
 
         orderRepository.save(order);
     }
