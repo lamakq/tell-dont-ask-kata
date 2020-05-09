@@ -32,11 +32,7 @@ public class OrderCreationUseCase {
                 final BigDecimal taxedAmount = product.getTaxedAmount(itemRequest);
                 final BigDecimal taxAmount = product.getTaxAmount(itemRequest);
 
-                final OrderItem orderItem = new OrderItem();
-                orderItem.setProduct(product);
-                orderItem.setQuantity(itemRequest.getQuantity());
-                orderItem.setTax(taxAmount);
-                orderItem.setTaxedAmount(taxedAmount);
+                final OrderItem orderItem = new OrderItem(itemRequest, product, taxedAmount, taxAmount);
                 order.getItems().add(orderItem);
 
                 order.setTotal(order.getTotal().add(taxedAmount));
