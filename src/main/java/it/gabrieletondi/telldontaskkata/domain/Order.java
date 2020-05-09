@@ -62,10 +62,6 @@ public class Order {
         this.status = status;
     }
 
-    public void setCreatedStatus() {
-        this.status = CREATED;
-    }
-
     public int getId() {
         return id;
     }
@@ -76,5 +72,13 @@ public class Order {
 
     public boolean addItem(OrderItem orderItem) {
         return getItems().add(orderItem);
+    }
+
+    public void addTaxedAmount(BigDecimal taxedAmount) {
+        this.total = this.total.add(taxedAmount);
+    }
+
+    public void addTaxAmount(BigDecimal taxAmount) {
+        this.tax = this.tax.add(taxAmount);
     }
 }
