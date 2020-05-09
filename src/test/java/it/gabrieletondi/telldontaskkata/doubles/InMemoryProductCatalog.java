@@ -2,7 +2,7 @@ package it.gabrieletondi.telldontaskkata.doubles;
 
 import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
-import it.gabrieletondi.telldontaskkata.useCase.UnknownProductException;
+import it.gabrieletondi.telldontaskkata.exception.UnknownProductException;
 
 import java.util.List;
 

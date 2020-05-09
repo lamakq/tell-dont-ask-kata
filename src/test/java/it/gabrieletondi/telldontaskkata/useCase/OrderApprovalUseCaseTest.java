@@ -4,6 +4,10 @@ import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 import it.gabrieletondi.telldontaskkata.doubles.TestShipmentService;
+import it.gabrieletondi.telldontaskkata.exception.ApprovedOrderCannotBeRejectedException;
+import it.gabrieletondi.telldontaskkata.exception.RejectedOrderCannotBeApprovedException;
+import it.gabrieletondi.telldontaskkata.exception.ShippedOrdersCannotBeChangedException;
+import it.gabrieletondi.telldontaskkata.request.OrderApprovalRequest;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -21,9 +25,7 @@ public class OrderApprovalUseCaseTest {
         initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(true);
+        OrderApprovalRequest request = new OrderApprovalRequest(1, true);
 
         useCase.run(request);
 
@@ -38,10 +40,7 @@ public class OrderApprovalUseCaseTest {
         initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(false);
-
+        OrderApprovalRequest request = new OrderApprovalRequest(1, false);
         useCase.run(request);
 
         final Order savedOrder = orderRepository.getSavedOrder();
@@ -55,9 +54,7 @@ public class OrderApprovalUseCaseTest {
         initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(true);
+        OrderApprovalRequest request = new OrderApprovalRequest(1, true);
 
         useCase.run(request);
 
@@ -71,10 +68,7 @@ public class OrderApprovalUseCaseTest {
         initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(false);
-
+        OrderApprovalRequest request = new OrderApprovalRequest(1, false);
         useCase.run(request);
 
         assertThat(orderRepository.getSavedOrder(), is(nullValue()));
@@ -87,9 +81,7 @@ public class OrderApprovalUseCaseTest {
         initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(true);
+        OrderApprovalRequest request = new OrderApprovalRequest(1, true);
 
         useCase.run(request);
 
@@ -103,9 +95,7 @@ public class OrderApprovalUseCaseTest {
         initialOrder.setId(1);
         orderRepository.addOrder(initialOrder);
 
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(false);
+        OrderApprovalRequest request = new OrderApprovalRequest(1, false);
 
         useCase.run(request);
 

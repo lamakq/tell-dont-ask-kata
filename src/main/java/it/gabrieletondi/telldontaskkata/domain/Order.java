@@ -1,8 +1,10 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
+import it.gabrieletondi.telldontaskkata.request.SellItemRequest;
+import it.gabrieletondi.telldontaskkata.request.SellItemsRequest;
 import it.gabrieletondi.telldontaskkata.service.ShipmentService;
-import it.gabrieletondi.telldontaskkata.useCase.*;
+import it.gabrieletondi.telldontaskkata.exception.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

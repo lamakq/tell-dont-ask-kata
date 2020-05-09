@@ -4,6 +4,9 @@ import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 import it.gabrieletondi.telldontaskkata.doubles.TestShipmentService;
+import it.gabrieletondi.telldontaskkata.exception.OrderCannotBeShippedException;
+import it.gabrieletondi.telldontaskkata.exception.OrderCannotBeShippedTwiceException;
+import it.gabrieletondi.telldontaskkata.request.OrderShipmentRequest;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -11,9 +14,9 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class OrderShipmentUseCaseTest {
-    private final TestOrderRepository orderRepository = new TestOrderRepository(new TestShipmentService());
     private final TestShipmentService shipmentService = new TestShipmentService();
-    private final OrderShipmentUseCase useCase = new OrderShipmentUseCase(orderRepository, shipmentService);
+    private final TestOrderRepository orderRepository = new TestOrderRepository(shipmentService);
+    private final OrderShipmentUseCase useCase = new OrderShipmentUseCase(orderRepository);
 
     @Test
     public void shipApprovedOrder() throws Exception {
@@ -22,8 +25,7 @@ public class OrderShipmentUseCaseTest {
         initialOrder.setStatus(OrderStatus.APPROVED);
         orderRepository.addOrder(initialOrder);
 
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
+        OrderShipmentRequest request = new OrderShipmentRequest(1);
 
         useCase.run(request);
 
@@ -38,8 +40,7 @@ public class OrderShipmentUseCaseTest {
         initialOrder.setStatus(OrderStatus.CREATED);
         orderRepository.addOrder(initialOrder);
 
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
+        OrderShipmentRequest request = new OrderShipmentRequest(1);
 
         useCase.run(request);
 
@@ -54,8 +55,7 @@ public class OrderShipmentUseCaseTest {
         initialOrder.setStatus(OrderStatus.REJECTED);
         orderRepository.addOrder(initialOrder);
 
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
+        OrderShipmentRequest request = new OrderShipmentRequest(1);
 
         useCase.run(request);
 
@@ -70,9 +70,7 @@ public class OrderShipmentUseCaseTest {
         initialOrder.setStatus(OrderStatus.SHIPPED);
         orderRepository.addOrder(initialOrder);
 
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
-
+        OrderShipmentRequest request = new OrderShipmentRequest(1);
         useCase.run(request);
 
         assertThat(orderRepository.getSavedOrder(), is(nullValue()));

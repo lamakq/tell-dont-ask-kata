@@ -8,12 +8,14 @@ import it.gabrieletondi.telldontaskkata.doubles.InMemoryProductCatalog;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 import it.gabrieletondi.telldontaskkata.doubles.TestShipmentService;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
+import it.gabrieletondi.telldontaskkata.exception.UnknownProductException;
+import it.gabrieletondi.telldontaskkata.request.SellItemRequest;
+import it.gabrieletondi.telldontaskkata.request.SellItemsRequest;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;

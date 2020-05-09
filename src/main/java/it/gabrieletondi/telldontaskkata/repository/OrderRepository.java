@@ -1,8 +1,8 @@
 package it.gabrieletondi.telldontaskkata.repository;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
-import it.gabrieletondi.telldontaskkata.useCase.OrderApprovalRequest;
-import it.gabrieletondi.telldontaskkata.useCase.OrderShipmentRequest;
+import it.gabrieletondi.telldontaskkata.request.OrderApprovalRequest;
+import it.gabrieletondi.telldontaskkata.request.OrderShipmentRequest;
 
 public interface OrderRepository {
     void save(Order order);
