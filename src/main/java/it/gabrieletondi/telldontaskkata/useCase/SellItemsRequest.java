@@ -27,10 +27,14 @@ public class SellItemsRequest {
 
             assertProductNotEmpty(product);
 
-            final OrderItem orderItem = itemRequest.getOrderItem(product);
-            order.addItem(orderItem);
+            addOrderItem(order, itemRequest, product);
         }
         return order;
+    }
+
+    private void addOrderItem(Order order, SellItemRequest itemRequest, Product product) {
+        final OrderItem orderItem = itemRequest.getOrderItem(product);
+        order.addItem(orderItem);
     }
 
     private void assertProductNotEmpty(Product product) {
