@@ -4,6 +4,7 @@ import it.gabrieletondi.telldontaskkata.service.ShipmentService;
 import it.gabrieletondi.telldontaskkata.useCase.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.*;
@@ -62,6 +63,16 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Order(){}
+
+    public Order(String currency){
+        this.status = OrderStatus.CREATED;
+        this.items = new ArrayList<>();
+        this.currency = currency;
+        this.total = new BigDecimal("0.00");
+        this.tax = new BigDecimal("0.00");
     }
 
     public void approveOrder(boolean isApproved){
