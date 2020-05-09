@@ -32,17 +32,8 @@ public class OrderCreationUseCase {
                 throw new UnknownProductException();
             }
             else {
-                final BigDecimal unitaryTax = product.getUnitaryTax();
-
-                final BigDecimal unitaryTaxedAmount = product.getUnitaryTaxedAmount();
-
-                final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
-                final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
-
-                final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity(), taxedAmount, taxAmount);
-
+                final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
                 order.addOrderItem(orderItem);
-
             }
         }
 
