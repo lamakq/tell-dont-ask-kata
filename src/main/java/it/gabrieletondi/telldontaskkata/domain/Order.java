@@ -72,4 +72,13 @@ public class Order {
     public void addOrderItem(OrderItem orderItem){
         this.items.add(orderItem);
     }
+
+    public void updateTotal(BigDecimal amount) {
+        setTotal(this.total.add(amount));
+    }
+
+    public void updateTax(BigDecimal taxAmount) {
+
+        setTax(this.tax.add(taxAmount));
+    }
 }
