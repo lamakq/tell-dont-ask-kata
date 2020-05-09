@@ -19,4 +19,5 @@ public class SellItemRequest {
     public String getProductName() {
         return productName;
     }
+
 }

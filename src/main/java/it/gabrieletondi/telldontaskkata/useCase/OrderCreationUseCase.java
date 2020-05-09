@@ -24,13 +24,7 @@ public class OrderCreationUseCase {
 
     public void run(SellItemsRequest request) {
         Order order = new Order("EUR");
-
-        for (SellItemRequest itemRequest : request.getRequests()) {
-            Product product = productCatalog.getByName(itemRequest.getProductName());
-            final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
-            order.addOrderItem(orderItem);
-        }
-
+        order.createOrder(productCatalog, request);
         orderRepository.save(order);
     }
 }

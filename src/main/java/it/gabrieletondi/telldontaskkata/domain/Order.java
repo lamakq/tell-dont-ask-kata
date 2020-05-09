@@ -1,5 +1,6 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
+import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 import it.gabrieletondi.telldontaskkata.service.ShipmentService;
 import it.gabrieletondi.telldontaskkata.useCase.*;
 
@@ -105,10 +106,18 @@ public class Order {
         this.status = OrderStatus.SHIPPED;
     }
 
-    public void addOrderItem(OrderItem orderItem) {
+    private void addOrderItem(OrderItem orderItem) {
         this.items.add(orderItem);
         this.total = this.total.add(orderItem.getTaxedAmount());
         this.tax = this.tax.add(orderItem.getTax());
 
+    }
+
+    public void createOrder(ProductCatalog productCatalog, SellItemsRequest request){
+        for (SellItemRequest itemRequest : request.getRequests()) {
+            Product product = productCatalog.getByName(itemRequest.getProductName());
+            final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
+            this.addOrderItem(orderItem);
+        }
     }
 }
