@@ -35,7 +35,7 @@ public class TestOrderRepository implements OrderRepository {
     @Override
     public void approveOrder(OrderApprovalRequest orderApprovalRequest) {
         final Order order = this.getById(orderApprovalRequest.getOrderId());
-        order.approveOrder(orderApprovalRequest.isApproved());
+        order.approve(orderApprovalRequest.isApproved());
         this.save(order);
     }
 

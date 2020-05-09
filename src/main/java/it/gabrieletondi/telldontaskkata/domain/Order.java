@@ -63,7 +63,7 @@ public class Order {
         this.tax = new BigDecimal("0.00");
     }
 
-    public void approveOrder(boolean isApproved){
+    public void approve(boolean isApproved){
         if (this.status.equals(OrderStatus.SHIPPED)) {
             throw new ShippedOrdersCannotBeChangedException();
         }
@@ -97,7 +97,6 @@ public class Order {
         this.items.add(orderItem);
         this.total = this.total.add(orderItem.getTaxedAmount());
         this.tax = this.tax.add(orderItem.getTax());
-
     }
 
     private void createOrder(ProductCatalog productCatalog, SellItemsRequest request){
