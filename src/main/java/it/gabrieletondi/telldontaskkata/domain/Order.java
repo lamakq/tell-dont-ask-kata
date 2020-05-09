@@ -71,4 +71,11 @@ public class Order {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void addItem(OrderItem orderItem)
+    {
+        items.add(orderItem);
+        total = total.add(orderItem.getTaxedAmount());
+        tax = tax.add(orderItem.getTax());
+    }
 }
