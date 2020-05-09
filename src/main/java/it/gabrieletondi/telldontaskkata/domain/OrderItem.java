@@ -10,11 +10,11 @@ public class OrderItem {
     private BigDecimal taxedAmount;
     private BigDecimal tax;
 
-    public OrderItem(SellItemRequest itemRequest, Product product, BigDecimal taxedAmount, BigDecimal taxAmount) {
+    public OrderItem(SellItemRequest itemRequest, Product product) {
         this.product = product;
         this.quantity = itemRequest.getQuantity();
-        this.tax = taxAmount;
-        this.taxedAmount = taxedAmount;
+        this.tax = product.getTaxAmount(itemRequest);
+        this.taxedAmount = product.getTaxedAmount(itemRequest);
     }
 
     public Product getProduct() {

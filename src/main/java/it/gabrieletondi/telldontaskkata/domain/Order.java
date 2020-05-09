@@ -70,15 +70,18 @@ public class Order {
         this.id = id;
     }
 
-    public boolean addItem(OrderItem orderItem) {
-        return getItems().add(orderItem);
+    public void addItem(OrderItem orderItem) {
+        items.add(orderItem);
+
+        addTaxedAmount(orderItem.getTaxedAmount());
+        addTaxAmount(orderItem.getTax());
     }
 
-    public void addTaxedAmount(BigDecimal taxedAmount) {
+    private void addTaxedAmount(BigDecimal taxedAmount) {
         this.total = this.total.add(taxedAmount);
     }
 
-    public void addTaxAmount(BigDecimal taxAmount) {
+    private void addTaxAmount(BigDecimal taxAmount) {
         this.tax = this.tax.add(taxAmount);
     }
 }
