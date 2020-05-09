@@ -25,12 +25,16 @@ public class SellItemsRequest {
         for (SellItemRequest itemRequest : requests) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
 
-            if (product == null) {
-                throw new UnknownProductException();
-            }
+            assertProductNotEmpty(product);
 
             final OrderItem orderItem = new OrderItem(itemRequest, product);
             order.addItem(orderItem);
+        }
+    }
+
+    private void assertProductNotEmpty(Product product) {
+        if (product == null) {
+            throw new UnknownProductException();
         }
     }
 }
