@@ -79,7 +79,7 @@ public class Order {
         this.status = isApproved ? OrderStatus.APPROVED : OrderStatus.REJECTED;
     }
 
-    public void shipOrder(ShipmentService shipmentService){
+    public void ship(ShipmentService shipmentService){
         if (this.status.equals(CREATED) || this.status.equals(REJECTED)) {
             throw new OrderCannotBeShippedException();
         }
