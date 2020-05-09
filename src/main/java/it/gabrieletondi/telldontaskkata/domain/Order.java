@@ -1,7 +1,10 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+
+import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.CREATED;
 
 public class Order {
     private BigDecimal total;
@@ -10,6 +13,14 @@ public class Order {
     private BigDecimal tax;
     private OrderStatus status;
     private int id;
+
+    public Order() {
+        this.setCreatedStatus();
+        this.setItems(new ArrayList<>());
+        this.setCurrency("EUR");
+        this.setTotal(new BigDecimal("0.00"));
+        this.setTax(new BigDecimal("0.00"));
+    }
 
     public BigDecimal getTotal() {
         return total;
@@ -49,6 +60,10 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public void setCreatedStatus() {
+        this.status = CREATED;
     }
 
     public int getId() {
