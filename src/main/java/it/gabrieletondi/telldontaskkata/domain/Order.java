@@ -28,6 +28,10 @@ public class Order {
         this.total = total;
     }
 
+    public void updateTotalWithTaxes(BigDecimal taxedAmount){
+        this.total.add(taxedAmount);
+    }
+
     public String getCurrency() {
         return currency;
     }
@@ -66,5 +70,10 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addOrderItem(OrderItem orderItem){
+        this.items.add(orderItem);
+        updateTotalWithTaxes(orderItem.getTaxedAmount());
     }
 }
