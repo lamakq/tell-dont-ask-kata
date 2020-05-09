@@ -96,12 +96,4 @@ public class Order {
         approvalValidators.forEach(validator -> validator.validate(request, this));
         status = request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED;
     }
-
-    private boolean isShipped() {
-        return status.equals(OrderStatus.SHIPPED);
-    }
-
-    private boolean isRejected() {
-        return status.equals(OrderStatus.REJECTED);
-    }
 }
