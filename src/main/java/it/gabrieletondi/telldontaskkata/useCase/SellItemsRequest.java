@@ -24,7 +24,6 @@ public class SellItemsRequest {
         Order order = new Order();
         for (SellItemRequest itemRequest : requests) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
-
             assertProductNotEmpty(product);
 
             addOrderItem(order, itemRequest, product);
