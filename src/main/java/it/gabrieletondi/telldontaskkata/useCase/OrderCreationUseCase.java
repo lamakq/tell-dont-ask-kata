@@ -27,20 +27,11 @@ public class OrderCreationUseCase {
         for (SellItemRequest itemRequest : request.getRequests()) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
 
-            int roundingScale = 2;
-            RoundingMode roundingMode = HALF_UP;
-            int itemRequestQuantity = itemRequest.getQuantity();
-
-            final BigDecimal unitaryTax = product.getUnitaryTax().setScale(roundingScale, roundingMode);
-            final BigDecimal unitaryTaxedAmount = product.getUnitaryTaxedAmount(unitaryTax).setScale(roundingScale, roundingMode);
-            final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequestQuantity)).setScale(roundingScale, roundingMode);
-            final BigDecimal tax = unitaryTax.multiply(BigDecimal.valueOf(itemRequestQuantity));
-
-            final OrderItem orderItem = new OrderItem(product, itemRequestQuantity, tax, taxedAmount);
+            final OrderItem orderItem = new OrderItem(product, itemRequest.getQuantity());
             order.addItem(orderItem);
 
-            order.addTotal(taxedAmount);
-            order.addTaxTotal(tax);
+            order.addTotal(orderItem.getTaxedAmount());
+            order.addTaxTotal(orderItem.getTax());
         }
 
         orderRepository.save(order);
