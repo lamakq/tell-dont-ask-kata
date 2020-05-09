@@ -28,16 +28,16 @@ public class OrderCreationUseCase {
             if (product == null) {
                 throw new UnknownProductException();
             }
-            else {
-                final BigDecimal taxedAmount = product.getTaxedAmount(itemRequest);
-                final BigDecimal taxAmount = product.getTaxAmount(itemRequest);
 
-                final OrderItem orderItem = new OrderItem(itemRequest, product, taxedAmount, taxAmount);
-                order.addItem(orderItem);
+            final BigDecimal taxedAmount = product.getTaxedAmount(itemRequest);
+            final BigDecimal taxAmount = product.getTaxAmount(itemRequest);
 
-                order.addTaxedAmount(taxedAmount);
-                order.addTaxAmount(taxAmount);
-            }
+            final OrderItem orderItem = new OrderItem(itemRequest, product, taxedAmount, taxAmount);
+            order.addItem(orderItem);
+
+            order.addTaxedAmount(taxedAmount);
+            order.addTaxAmount(taxAmount);
+
         }
 
         orderRepository.save(order);
