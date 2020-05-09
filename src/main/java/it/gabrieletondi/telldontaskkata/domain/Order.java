@@ -16,10 +16,15 @@ public class Order {
     private OrderStatus status;
     private int id;
 
-    public Order(){
-
+    public Order() {
+        this.currency = "EUR";
+        this.status = OrderStatus.CREATED;
+        this.items = new ArrayList<>();
+        this.total = new BigDecimal("0.00");
+        this.tax = new BigDecimal("0.00");
     }
-    public Order(  String currency ) {
+
+    public Order(String currency) {
         this.currency = currency;
         this.status = OrderStatus.CREATED;
         this.items = new ArrayList<>();
@@ -64,6 +69,10 @@ public class Order {
     }
 
     public void setStatus(OrderStatus status) {
+        if (this.status.equals(OrderStatus.SHIPPED)) {
+            throw new ShippedOrdersCannotBeChangedException();
+        }
+
         this.status = status;
     }
 
@@ -88,9 +97,6 @@ public class Order {
     }
 
     public void approve() {
-        if (status.equals(OrderStatus.SHIPPED)) {
-            throw new ShippedOrdersCannotBeChangedException();
-        }
         if (status.equals(OrderStatus.REJECTED)) {
             throw new RejectedOrderCannotBeApprovedException();
         }
@@ -98,10 +104,6 @@ public class Order {
     }
 
     public void reject() {
-        if (status.equals(OrderStatus.SHIPPED)) {
-            throw new ShippedOrdersCannotBeChangedException();
-        }
-
         if (status.equals(OrderStatus.APPROVED)) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
